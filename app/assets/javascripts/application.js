@@ -13,5 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap-sprockets
-//= require turbolinks
-//= require_tree .
+//= require angular
+//= require angular-route
+//= require angular-animate
+//= require angularApp
+//= require MainCtrl

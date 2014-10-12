@@ -1,0 +1,39 @@
+<div class="col-md-6">
+    <table>
+        <thead>
+        <tr>
+            <th ng-repeat="letterHeader in lettersHeader" class="cell" ng-class="{'bottom-bordered': $index != 0}">
+                {{letterHeader}}
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="digitHeader in digitsHeader" class="cell">
+            <td class="right-bordered">{{digitHeader}}</td>
+            <td ng-repeat="item in digitsHeader" class="right-bordered top-bordered bottom-bordered left-bordered cell fieldCell">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="col-md-6">
+    <table>
+        <thead>
+        <tr>
+            <th ng-repeat="letterHeader in lettersHeader" class="cell" ng-class="{'bottom-bordered': $index != 0}">
+                {{letterHeader}}
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="digitHeader in digitsHeader" class="cell">
+            <td class="right-bordered">{{digitHeader}}</td>
+            <td ng-repeat="item in enemyField[$index] track by $index" class="right-bordered top-bordered bottom-bordered left-bordered cell fieldCell"
+                ng-click="damage($event, $parent.$index, $index)" ng-class="{'damaged': item == 1}">
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
