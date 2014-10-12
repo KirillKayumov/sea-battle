@@ -15,7 +15,7 @@ app.controller('MainCtrl', function($scope){
     $scope.damage = function($event, x, y){
         if ($scope.enemyField[x][y] != 1){
             $scope.enemyField[x][y] = 1;
-            $scope.enemyField[x][y] = 2;
+//            $scope.enemyField[x][y] = 2;
 
             $($event.target).removeClass('fieldCell');
         }

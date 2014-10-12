@@ -16,3 +16,32 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+.cell{
+  width: 30px;
+  height: 30px;
+  text-align: center;
+}
+
+.fieldCell:hover{
+  background-color: #dddddd;
+}
+
+.right-bordered{
+  border-right: 1px solid #000000;
+}
+
+.bottom-bordered{
+  border-bottom: 1px solid #000000;
+}
+
+.top-bordered{
+  border-top: 1px solid #000000;
+}
+
+.left-bordered{
+  border-left: 1px solid #000000;
+}
+
+.damaged{
+  background-color: red;
+}
