@@ -13,6 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap-sprockets
-//= require lib/angular.min
-//= require lib/angular-route.min
 //= require turbolinks
+//= require angular
+//= require angular-animate
+//= require angular-resource
+//= require_tree .
