@@ -1,4 +1,4 @@
-app.controller('MainCtrl', ['$scope', function($scope){
+app.controller('MainCtrl', ['$scope', 'II', function($scope, II){
     $scope.yourField = [];
     $scope.enemyField = [];
     $scope.yourShips = ["", 4, 3, 2, 1];
@@ -6,11 +6,13 @@ app.controller('MainCtrl', ['$scope', function($scope){
     $scope.hoveredCells = [];
     $scope.orientation = false;
     $scope.currentShip = [];
+    $scope.ready = false;
     $scope.takeShip = function(num){
         if ($scope.yourShips[num] > 0)
             $scope.takedShip = num;
     };
-
+    $scope.II = II;
+    $scope.II.initialize();
     function isInField(x, y){
         return (x >= 0 && x <= 9 && y >= 0 && y <= 9)
     }
@@ -35,6 +37,12 @@ app.controller('MainCtrl', ['$scope', function($scope){
         setDisabledRound();
         $scope.yourShips[$scope.takedShip]--;
         $scope.takedShip = -1;
+        var isReady = true;
+        for (var i = 0; i <= 3; i++)
+            if ($scope.yourShips[i] != 0)
+                isReady = false;
+        if (isReady)
+            $scope.ready = true;
     };
 
     $scope.clearShipHover = function () {
@@ -150,12 +158,89 @@ app.controller('MainCtrl', ['$scope', function($scope){
         }
         return cells;
     }
+    $scope.yourField = $scope.II.returnField();
 
 }]);
+
 
 app.service('II', function(){
     var yourField = [];
     var enemyField = [];
+    var currentShip = [];
+    function getRandom(min, max)
+    {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function isInField(x, y){
+        return (x >= 0 && x <= 9 && y >= 0 && y <= 9)
+    }
+
+    function setShip(direction, side, coord, size, first, second){
+        var x = 0, y = 0;
+        currentShip = [];
+        var field = [];
+        for (var i = 0; i < 10; i++){
+            field[i] = [];
+            for (var j = 0; j < 10; j++){
+                field[i][j] = yourField[i][j];
+            }
+        }
+
+        if (direction == 0){
+            if (side == 0){
+                x = first;
+                for (y = coord; y < coord + size; y++ ){
+                    if (yourField[x][y] < 0)
+                        return false;
+                    field[x][y] = -1;
+                    currentShip.push({x: x, y: y});
+                }
+            } else{
+                x = second;
+                for (y = coord; y < coord + size; y++ ){
+                    if (yourField[x][y] < 0)
+                        return false;
+                    field[x][y] = -1;
+                    currentShip.push({x: x, y: y});
+                }
+            }
+        } else{
+            if (side == 0){
+                y = first;
+                for (x = coord; x < coord + size; x++ ){
+                    if (yourField[x][y] < 0)
+                        return false;
+                    field[x][y] = -1;
+                    currentShip.push({x: x, y: y});
+                }
+            } else{
+                y = second;
+                for (x = coord; x < coord + size; x++ ){
+                    if (yourField[x][y] < 0)
+                        return false;
+                    field[x][y] = -1;
+                    currentShip.push({x: x, y: y});
+                }
+            }
+        }
+        yourField = field;
+        setDisabledRound();
+        return true;
+    }
+    function setDisabledRound (){
+        var xy =[[-1, 0], [1, 0], [0, 1], [0, -1], [1, 1], [-1, -1], [-1, 1], [1, -1]];
+        for (var j = 0; j < currentShip.length; j++)
+        {
+            for (var i = 0; i < xy.length; i++) {
+                if (isInField(xy[i][0] + currentShip[j].x, xy[i][1] + currentShip[j].y)){
+                    if (yourField[xy[i][0] + currentShip[j].x][xy[i][1] + currentShip[j].y] == 0)
+                        yourField[xy[i][0] + currentShip[j].x][xy[i][1] + currentShip[j].y] = -2;
+                }
+            }
+
+        }
+    }
     return {
         initialize: function(){
             for (var x = 0; x < 10; x++){
@@ -166,7 +251,37 @@ app.service('II', function(){
                     enemyField[x][y] = 0;
                 }
             }
+
+            setShip(getRandom(0, 1), getRandom(0, 1), getRandom(0, 6), 4, 0, 9);
+            while (!setShip(getRandom(0, 1), getRandom(0, 1), getRandom(0, 6), 3, 0, 9)){
+            }
+            while (!setShip(getRandom(0, 1), getRandom(0, 1), getRandom(0, 6), 3, 0, 9)){
+            }
+            for (var i = 0; i <= 2; i++){
+                while (!setShip(getRandom(0, 1), getRandom(0, 1), getRandom(0, 6), 2, getRandom(0, 9), getRandom(0, 9))){
+                }
+            }
+
+            for (var i = 0; i <= 3; i++){
+                while (!setShip(getRandom(0, 1), getRandom(0, 1), getRandom(0, 6), 1, getRandom(0, 9), getRandom(0, 9))){
+                }
+            }
+
+            this.toString();
+        },
+        toString: function(){
+            for (var i = 0; i < 10; i++){
+                var string = "";
+                for (var j = 0; j < 10; j++){
+                    string += yourField[i][j] + " ";
+                }
+                console.log(string);
+            }
+        },
+        returnField: function(){
+            return yourField;
         }
     }
 
 });
+
