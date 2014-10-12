@@ -1,4 +1,4 @@
-app.controller('MainCtrl', function($scope){
+app.controller('MainCtrl', ['$scope', function($scope){
     $scope.yourField = [];
     $scope.enemyField = [];
     for (var x = 0; x < 10; x++){
@@ -51,7 +51,7 @@ app.controller('MainCtrl', function($scope){
         return cells;
     }
 
-});
+}]);
 
 app.service('II', function(){
     var yourField = [];
