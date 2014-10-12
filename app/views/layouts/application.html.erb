@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html ng-app>
+<html ng-app="app">
 <head>
   <title>SeaBattle</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js' %>
+  <%= javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-route.min.js' %>
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -13,6 +14,8 @@
   <p class="alert"><%= alert %></p>
 
   <%= yield %>
+  <script src="/assets/javascripts/angularApp.js"/>
+  <script src="/assets/javascripts/MainCtrl.js"/>
 
 </body>
 </html>
