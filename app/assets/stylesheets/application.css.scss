@@ -48,7 +48,7 @@
 
 .shipCell {
   display: inline-block;
-  background-color: lightblue;
+  background-color: royalblue;
   width: 20px;
   height: 20px;
 }
@@ -67,4 +67,16 @@
 
 .hovered{
   background-color: blue;
+}
+
+.isShip {
+  background-color: green;
+}
+
+.disabledSelect .shipCell{
+  background-color: lightblue;
+}
+
+.cantPut{
+  background-color: #B00100;
 }

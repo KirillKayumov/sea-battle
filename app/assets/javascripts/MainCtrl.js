@@ -5,12 +5,34 @@ app.controller('MainCtrl', ['$scope', function($scope){
     $scope.takedShip = -1;
     $scope.hoveredCells = [];
     $scope.orientation = false;
+    $scope.currentShip = [];
     $scope.takeShip = function(num){
-        $scope.takedShip = num;
+        if ($scope.yourShips[num] > 0)
+            $scope.takedShip = num;
+    };
+
+    function setDisabledRound(){
+        var xy =[[-1, 0], [1, 0], [0, 1], [0, -1], [1, 1], [-1, -1], [-1, 1], [1, -1]];
+        for (var j = 0; j < $scope.currentShip.length; j++)
+        {
+            for (var i = 0; i < xy.length; i++) {
+                if ($scope.yourField[xy[i][0] + $scope.currentShip[j].x][xy[i][1] + $scope.currentShip[j].y] == 0)
+                    $scope.yourField[xy[i][0] + $scope.currentShip[j].x][xy[i][1] + $scope.currentShip[j].y] = -2;
+            }
+        }
+    }
+
+    $scope.setShip = function(){
+        for (var i = 0; i < $scope.currentShip.length; i++)
+            $scope.yourField[$scope.currentShip[i].x][$scope.currentShip[i].y] = -1;
+        setDisabledRound();
+        $scope.yourShips[$scope.takedShip]--;
+        $scope.takedShip = -1;
     };
 
     $scope.clearShipHover = function () {
         $scope.hoveredCells = [];
+        $scope.currentShip = [];
         for (var i = 0; i < 10; i++)
             $scope.hoveredCells[i] = new Array(10);
     };
@@ -36,18 +58,30 @@ app.controller('MainCtrl', ['$scope', function($scope){
             if (x + $scope.takedShip > 10)
                 return;
         }
-        $scope.clearShipHover();
+        var cells = [];
+        for (var i = 0; i < 10; i++)
+            cells[i] = new Array(10);
+        var currentShip = [];
         if ($scope.takedShip == -1)
             return;
         if (!$scope.orientation) {
             for (var i = y; i < y + $scope.takedShip; i++) {
-                $scope.hoveredCells[x][i] = 1;
+                if ($scope.yourField[x][i] && $scope.yourField[x][i] < 0)
+                    return;
+                cells[x][i] = 1;
+                currentShip.push({x: x, y: i});
             }
         } else{
             for (var i = x; i < x + $scope.takedShip; i++) {
-                $scope.hoveredCells[i][y] = 1;
+                if ($scope.yourField[i][y] && $scope.yourField[i][y] < 0)
+                    return;
+                cells[i][y] = 1;
+                currentShip.push({x: i, y: y});
             }
         }
+        $scope.clearShipHover();
+        $scope.currentShip = currentShip;
+        $scope.hoveredCells = cells;
     };
 
     $scope.isHoveredCell = function(x, y){

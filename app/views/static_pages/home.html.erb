@@ -1,19 +1,19 @@
 <div class="col-md-6" xmlns="http://www.w3.org/1999/html">
     <div class="col-md-4">
         <div class="ships">
-            <div class="ships4"  ng-click="takeShip(4)"  ng-class="{takedShip: takedShip == 4}">
+            <div class="ships4"  ng-click="takeShip(4)"  ng-class="{takedShip: takedShip == 4, 'disabledSelect': yourShips[4]==0}">
                 <span ng-repeat="item in range(4) track by $index" class="cell shipCell"></span>
                 <span class="shipCount">x{{yourShips[4]}}</span>
             </div>
-            <div class="ships3" ng-click="takeShip(3)"  ng-class="{takedShip: takedShip == 3}">
+            <div class="ships3" ng-click="takeShip(3)"  ng-class="{takedShip: takedShip == 3, 'disabledSelect': yourShips[3]==0}">
                 <span ng-repeat="item in range(3) track by $index" class="cell shipCell"></span>
                 <span class="shipCount">x{{yourShips[3]}}</span>
             </div>
-            <div class="ships2" ng-click="takeShip(2)"  ng-class="{takedShip: takedShip == 2}">
+            <div class="ships2" ng-click="takeShip(2)"  ng-class="{takedShip: takedShip == 2, 'disabledSelect': yourShips[2]==0}">
                 <span ng-repeat="item in range(2) track by $index" class="cell shipCell"></span>
                 <span class="shipCount">x{{yourShips[2]}}</span>
             </div>
-            <div class="ships1"  ng-click="takeShip(1)" ng-class="{takedShip: takedShip == 1}">
+            <div class="ships1"  ng-click="takeShip(1)" ng-class="{takedShip: takedShip == 1, 'disabledSelect': yourShips[1]==0}">
                 <span ng-repeat="item in range(1) track by $index" class="cell shipCell"></span>
                 <span class="shipCount">x{{yourShips[1]}}</span>
             </div>
@@ -32,8 +32,13 @@
                 <tr ng-repeat="digitHeader in digitsHeader" class="cell">
                     <td class="right-bordered">{{digitHeader}}</td>
                     <td ng-repeat="item in digitsHeader" class="right-bordered top-bordered bottom-bordered left-bordered cell"
-                        ng-class="{'hovered': hoveredCells[$parent.$index][$index] == 1}"
-                            ng-mouseenter="takeShipHover($parent.$index, $index)">
+                        ng-class="{
+                                    'hovered': hoveredCells[$parent.$index][$index] == 1,
+                                    'isShip' : yourField[$parent.$index][$index] == -1,
+                                    'cantPut': ( yourField[$parent.$index][$index] == -2 && takedShip > 0)
+                                  }"
+                            ng-mouseenter="takeShipHover($parent.$index, $index)"
+                            ng-click="setShip()">
                     </td>
                 </tr>
             </tbody>
