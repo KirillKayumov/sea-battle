@@ -11,14 +11,21 @@ app.controller('MainCtrl', ['$scope', function($scope){
             $scope.takedShip = num;
     };
 
+    function isInField(x, y){
+        return (x >= 0 && x <= 9 && y >= 0 && y <= 9)
+    }
+
     function setDisabledRound(){
         var xy =[[-1, 0], [1, 0], [0, 1], [0, -1], [1, 1], [-1, -1], [-1, 1], [1, -1]];
         for (var j = 0; j < $scope.currentShip.length; j++)
         {
             for (var i = 0; i < xy.length; i++) {
-                if ($scope.yourField[xy[i][0] + $scope.currentShip[j].x][xy[i][1] + $scope.currentShip[j].y] == 0)
-                    $scope.yourField[xy[i][0] + $scope.currentShip[j].x][xy[i][1] + $scope.currentShip[j].y] = -2;
+                if (isInField(xy[i][0] + $scope.currentShip[j].x, xy[i][1] + $scope.currentShip[j].y)){
+                    if ($scope.yourField[xy[i][0] + $scope.currentShip[j].x][xy[i][1] + $scope.currentShip[j].y] == 0)
+                        $scope.yourField[xy[i][0] + $scope.currentShip[j].x][xy[i][1] + $scope.currentShip[j].y] = -2;
+                }
             }
+
         }
     }
 
