@@ -71,3 +71,60 @@
         </tbody>
     </table>
 </div>
+
+<div class="row">
+    <div class="col-md-6">
+        <table>
+            <thead>
+            <tr>
+                <th ng-repeat="letterHeader in lettersHeader" class="cell" ng-class="{'bottom-bordered': $index != 0}">
+                    {{letterHeader}}
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="digitHeader in digitsHeader" class="cell">
+                <td class="right-bordered">{{digitHeader}}</td>
+                <td ng-repeat="item in digitsHeader" class="right-bordered top-bordered bottom-bordered left-bordered cell"
+                    ng-class="{
+                                    'isShip' : IIfield[$parent.$index][$index] == -1,
+                                    'cantPut': ( IIfield[$parent.$index][$index] == -2)
+                                  }">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div ng-if="ready">
+            <button class="btn btn-primary">
+                Ready
+            </button>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <table>
+            <thead>
+            <tr>
+                <th ng-repeat="letterHeader in lettersHeader" class="cell" ng-class="{'bottom-bordered': $index != 0}">
+                    {{letterHeader}}
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="digitHeader in digitsHeader" class="cell">
+                <td class="right-bordered">{{digitHeader}}</td>
+                <td ng-repeat="item in digitsHeader" class="right-bordered top-bordered bottom-bordered left-bordered cell"
+                    ng-class="{
+                                    'isShip' : IIfieldEnemy[$parent.$index][$index] == -1,
+                                    'cantPut': ( IIfieldEnemy[$parent.$index][$index] == -2)
+                                  }">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div ng-if="ready">
+            <button class="btn btn-primary">
+                Ready
+            </button>
+        </div>
+    </div>
+</div>

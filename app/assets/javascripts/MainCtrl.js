@@ -7,11 +7,21 @@ app.controller('MainCtrl', ['$scope', 'II', function($scope, II){
     $scope.orientation = false;
     $scope.currentShip = [];
     $scope.ready = false;
+    for (var x = 0; x < 10; x++){
+        $scope.yourField[x] = [];
+        $scope.enemyField[x] = [];
+        for (var y = 0; y < 10; y++){
+            $scope.yourField[x][y] = 0;
+            $scope.enemyField[x][y] = 0;
+        }
+    }
     $scope.takeShip = function(num){
         if ($scope.yourShips[num] > 0)
             $scope.takedShip = num;
     };
     $scope.II = II;
+    $scope.II.initialize();
+    $scope.yourField = $scope.II.returnField().slice(0);
     $scope.II.initialize();
     function isInField(x, y){
         return (x >= 0 && x <= 9 && y >= 0 && y <= 9)
@@ -106,14 +116,6 @@ app.controller('MainCtrl', ['$scope', 'II', function($scope, II){
         }
     };
 
-    for (var x = 0; x < 10; x++){
-        $scope.yourField[x] = [];
-        $scope.enemyField[x] = [];
-        for (var y = 0; y < 10; y++){
-            $scope.yourField[x][y] = 0;
-            $scope.enemyField[x][y] = 0;
-        }
-    }
     $scope.range = function(count){
         return new Array(count);
     };
@@ -135,30 +137,52 @@ app.controller('MainCtrl', ['$scope', 'II', function($scope, II){
         cells.push({x: x, y: y});
         var xx = x - 1;
         var yy = y;
-        while (field[xx][yy] == 1){
+        while (isInField(xx, yy) && field[xx][yy] == -1){
             cells.push({x: xx, y: yy});
             xx--;
         }
         xx = x + 1;
-        while (field[xx][yy] == 1){
+        while (isInField(xx, yy) && field[xx][yy] == -1){
             cells.push({x: xx, y: yy});
             xx++;
         }
 
         xx = x;
         yy = y - 1;
-        while (field[xx][yy] == 1){
+        while ( isInField(xx, yy) && field[xx][yy] == 1){
             cells.push({x: xx, y: yy});
             yy--;
         }
         yy = y + 1;
-        while (field[xx][yy] == 1){
+        while (isInField(xx, yy) && field[xx][yy] == 1){
             cells.push({x: xx, y: yy});
             yy++;
         }
         return cells;
     }
-    $scope.yourField = $scope.II.returnField();
+    $scope.IIfield = $scope.II.returnField();
+    $scope.IIfieldEnemy = $scope.II.returnFieldEnemy();
+    function attack(){
+        var attacked = $scope.II.attack();
+        if ($scope.yourField[attacked.x][attacked.y] == -1){
+            var array = findConnectedCells(attacked.x, attacked.y, $scope.yourField);
+            var dead = true;
+            for (var i = 0; i < array.length; i++)
+                if ($scope.IIfieldEnemy[array[i].x][array[i].y] >= 2)
+                    dead = false;
+            $scope.II.attackResult(attacked.x, attacked.y, dead ? -3 : 3, dead ? array : null);
+            attack();
+            $scope.IIfieldEnemy[attacked.x][attacked.y] = -1;
+        } else{
+            $scope.II.attackResult(attacked.x, attacked.y, 1, null);
+            $scope.IIfieldEnemy[attacked.x][attacked.y] = -2;
+            setTimeout(attack, 1000);
+        }
+        if(!$scope.$$phase) {
+            $scope.$apply();
+        }
+    }
+    attack();
 
 }]);
 
@@ -166,6 +190,8 @@ app.controller('MainCtrl', ['$scope', 'II', function($scope, II){
 app.service('II', function(){
     var yourField = [];
     var enemyField = [];
+    var lastAttackX = -1;
+    var lastAttackY = -1;
     var currentShip = [];
     function getRandom(min, max)
     {
@@ -241,6 +267,14 @@ app.service('II', function(){
 
         }
     }
+    function attackField(x, y){
+        if (enemyField[x][y] == 0){
+            enemyField[x][y] = 1;
+            return {x: x, y : y}
+        }
+        else
+            return false
+    }
     return {
         initialize: function(){
             for (var x = 0; x < 10; x++){
@@ -267,7 +301,6 @@ app.service('II', function(){
                 }
             }
 
-            this.toString();
         },
         toString: function(){
             for (var i = 0; i < 10; i++){
@@ -280,6 +313,63 @@ app.service('II', function(){
         },
         returnField: function(){
             return yourField;
+        },
+        returnFieldEnemy: function(){
+            return enemyField;
+        },
+        attack: function(){
+            if (lastAttackX == -1 || lastAttackY == -1 || enemyField[lastAttackX][lastAttackY] == 1){
+                while (true){
+                    var k = attackField(getRandom(0, 9), getRandom(0, 9));
+                    if (!k)
+                        continue;
+                    return k;
+                }
+            } else{
+                var x = lastAttackX;
+                var y = lastAttackY;
+                var durations = [[0, 1], [0, -1], [1, 0], [-1, 0]];
+                var durationX;
+                var durationY;
+                for (var i = 0; i < durations.length; i++){
+                    if (isInField(x + durations[i][0], y + durations[i][1])){
+                        if (enemyField[x + durations[i][0]][y + durations[i][1]] == 3){
+                            durationX = durations[i][0];
+                            durationY = durations[i][1];
+                        }
+                    }
+                }
+                if (isInField(x + durationX * 2, y + durationY * 2)
+                    && enemyField[x + durationX * 2][y + durationY * 2] == 0){
+                    return this.setAttack(x + durationX * 2, y + durationY * 2);
+                } else{
+                    while(isInField(x + durationX * (-1), y + durationY * (-1))
+                        && enemyField[x + durationX * (-1)][y + durationY * (-1)] != 0) {
+                        x += durationX * (-1);
+                        y += durationY * (-1);
+                    }
+                    if (isInField(x, y))
+                        return this.setAttack(x, y);
+                }
+            }
+        },
+        setAttack: function(x, y){
+            return {x: x, y: y};
+        },
+        attackResult: function(x, y, value, array){
+            if (value != 1){
+                lastAttackX = x;
+                lastAttackY = y;
+            } else{
+                lastAttackX = -1;
+                lastAttackY = -1;
+            }
+            if (array != null){
+                for (var i = 0; i < array.length; i++){
+                    enemyField[array[i].x][array[i].y] = value;
+                }
+            } else
+                enemyField[x][y] = value;
         }
     }
 
