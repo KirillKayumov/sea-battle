@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :games do
         resources :turns
+        get 'turns/last', to: 'turns#last'
       end
     end
   end
