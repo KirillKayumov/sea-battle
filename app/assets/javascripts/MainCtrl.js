@@ -146,6 +146,8 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
         $scope.II.initialize();
         $scope.yourField = $scope.II.returnField().slice(0);
         $scope.yourShips= ["", 0, 0, 0, 0];
+        $scope.II.initialize();
+        $scope.IIfield = $scope.II.returnField();
     }
 
 }]);
