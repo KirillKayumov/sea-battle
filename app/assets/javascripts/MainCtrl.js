@@ -1,8 +1,9 @@
-app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http',
-        function($scope, II, HelpService, FieldState, $http){
+app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http', function($scope, II, HelpService, FieldState, $http){
     $scope.yourField = HelpService.initializeArray(10, 10);
     $scope.enemyField = HelpService.initializeArray(10, 10);
     $scope.FieldState = FieldState;
+    $scope.yourShipCount = 10;
+    $scope.enemyShipCount = 10;
     $scope.HelpService = HelpService;
     $scope.digitsHeader = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     $scope.lettersHeader = ["", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
@@ -93,6 +94,7 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
             var status = $scope.II.attacked(x, y);
             $scope.enemyField[x][y] = status;
             if (status == FieldState.KILLED){
+                $scope.enemyShipCount--;
                 var array = HelpService.findConnectedCells(x, y, $scope.enemyField);
                 for (var i = 0; i < array.length; i++){
                     $scope.enemyField[array[i].x][array[i].y] = FieldState.KILLED;
@@ -113,6 +115,7 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
                 if ($scope.yourField[array[i].x][array[i].y] > FieldState.HURT)
                     dead = false;
             if (dead) {
+                $scope.yourShipCount--;
                 for (var i = 0; i < array.length; i++) {
                     $scope.yourField[array[i].x][array[i].y] = FieldState.KILLED;
                 }
@@ -148,6 +151,16 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
         $scope.yourShips= ["", 0, 0, 0, 0];
         $scope.II.initialize();
         $scope.IIfield = $scope.II.returnField();
-    }
+    };
+
+    $scope.$watch("yourShipCount", function(newValue){
+        if (newValue == 0)
+            alert("You lose");
+    });
+
+    $scope.$watch("enemyShipCount", function(newValue){
+        if (newValue == 0)
+            alert("You win")
+    });
 
 }]);
