@@ -45,3 +45,42 @@
 .damaged{
   background-color: red;
 }
+
+.shipCell {
+  display: inline-block;
+  background-color: royalblue;
+  width: 20px;
+  height: 20px;
+}
+
+.ships{
+  padding-top: 2em;
+}
+
+.shipCount {
+  font-size: 15px;
+}
+
+.takedShip .shipCell{
+  background-color: blue;
+}
+
+.hovered{
+  background-color: blue;
+}
+
+.isShip {
+  background-color: green;
+}
+
+.disabledSelect .shipCell{
+  background-color: lightblue;
+}
+
+.cantPut{
+  background-color: #B00100;
+}
+
+.killed{
+  background-color: #000000;
+}
