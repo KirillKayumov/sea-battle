@@ -131,8 +131,6 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
 
     $scope.II = II;
     $scope.II.initialize();
-    $scope.yourField = $scope.II.returnField().slice(0);
-    $scope.II.initialize();
     $scope.IIfield = $scope.II.returnField();
     $scope.clearShipHover();
 
@@ -142,6 +140,11 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
 
             }
         })
+    };
+
+    $scope.render = function(){
+        $scope.II.initialize();
+        $scope.yourField = $scope.II.returnField().slice(0);
     }
 
 }]);
