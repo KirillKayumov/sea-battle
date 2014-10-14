@@ -17,4 +17,7 @@
 //= require angular-route
 //= require angular-animate
 //= require angularApp
+//= require FieldStatesService
+//= require HelpService
+//= require IIService
 //= require MainCtrl

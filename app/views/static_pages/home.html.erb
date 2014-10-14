@@ -33,9 +33,12 @@
                     <td class="right-bordered">{{digitHeader}}</td>
                     <td ng-repeat="item in digitsHeader" class="right-bordered top-bordered bottom-bordered left-bordered cell"
                         ng-class="{
-                                    'hovered': hoveredCells[$parent.$index][$index] == 1,
-                                    'isShip' : yourField[$parent.$index][$index] == -1,
-                                    'cantPut': ( yourField[$parent.$index][$index] == -2 && takedShip > 0)
+                                    'isShip' : yourField[$parent.$index][$index] == FieldState.SHIP,
+                                    'hovered': hoveredCells[$parent.$index][$index] == FieldState.SHIP,
+                                    'cantPut': ( yourField[$parent.$index][$index] == FieldState.SHIP_NEAR && takedShip != -1
+                                        ||yourField[$parent.$index][$index] == FieldState.HURT),
+                                    'killed' : (yourField[$parent.$index][$index] == FieldState.KILLED),
+                                    'damaged':(yourField[$parent.$index][$index] == FieldState.ATTACKED)
                                   }"
                             ng-mouseenter="takeShipHover($parent.$index, $index)"
                             ng-click="setShip()">
@@ -64,67 +67,14 @@
         <tr ng-repeat="digitHeader in digitsHeader" class="cell">
             <td class="right-bordered">{{digitHeader}}</td>
             <td ng-repeat="item in enemyField[$index] track by $index" class="right-bordered top-bordered bottom-bordered left-bordered cell fieldCell"
-                ng-click="damage($event, $parent.$index, $index)" ng-class="{'damaged': item == 1}">
+                ng-click="damage($event, $parent.$index, $index)" ng-class="{
+                    'isShip' : enemyField[$parent.$index][$index] == FieldState.HURT,
+                    'killed' : (enemyField[$parent.$index][$index] == FieldState.KILLED),
+                    'damaged':(enemyField[$parent.$index][$index] == FieldState.ATTACKED)
+                }">
 
             </td>
         </tr>
         </tbody>
     </table>
-</div>
-
-<div class="row">
-    <div class="col-md-6">
-        <table>
-            <thead>
-            <tr>
-                <th ng-repeat="letterHeader in lettersHeader" class="cell" ng-class="{'bottom-bordered': $index != 0}">
-                    {{letterHeader}}
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="digitHeader in digitsHeader" class="cell">
-                <td class="right-bordered">{{digitHeader}}</td>
-                <td ng-repeat="item in digitsHeader" class="right-bordered top-bordered bottom-bordered left-bordered cell"
-                    ng-class="{
-                                    'isShip' : IIfield[$parent.$index][$index] == -1,
-                                    'cantPut': ( IIfield[$parent.$index][$index] == -2)
-                                  }">
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <div ng-if="ready">
-            <button class="btn btn-primary">
-                Ready
-            </button>
-        </div>
-    </div>
-    <div class="col-md-6">
-        <table>
-            <thead>
-            <tr>
-                <th ng-repeat="letterHeader in lettersHeader" class="cell" ng-class="{'bottom-bordered': $index != 0}">
-                    {{letterHeader}}
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="digitHeader in digitsHeader" class="cell">
-                <td class="right-bordered">{{digitHeader}}</td>
-                <td ng-repeat="item in digitsHeader" class="right-bordered top-bordered bottom-bordered left-bordered cell"
-                    ng-class="{
-                                    'isShip' : IIfieldEnemy[$parent.$index][$index] == -1,
-                                    'cantPut': ( IIfieldEnemy[$parent.$index][$index] == -2)
-                                  }">
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <div ng-if="ready">
-            <button class="btn btn-primary">
-                Ready
-            </button>
-        </div>
-    </div>
 </div>
