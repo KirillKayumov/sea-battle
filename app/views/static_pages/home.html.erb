@@ -18,8 +18,14 @@
                 <span class="shipCount">x{{yourShips[1]}}</span>
             </div>
         </div>
-        <div>
+        <div ng-if="!started">
             <button ng-click="render()" class="btn btn-primary">Auto</button>
+        </div>
+
+        <div ng-if="ready && !started" class="ready_button">
+            <button class="btn btn-primary" ng-click="setStarted()">
+                Ready
+            </button>
         </div>
     </div>
     <div class="col-md-8">
@@ -38,10 +44,10 @@
                         ng-class="{
                                     'isShip' : yourField[$parent.$index][$index] == FieldState.SHIP,
                                     'hovered': hoveredCells[$parent.$index][$index] == FieldState.SHIP,
-                                    'cantPut': ( yourField[$parent.$index][$index] == FieldState.SHIP_NEAR && takedShip != -1
+                                    'damaged': ( yourField[$parent.$index][$index] == FieldState.SHIP_NEAR && takedShip != -1
                                         ||yourField[$parent.$index][$index] == FieldState.HURT),
                                     'killed' : (yourField[$parent.$index][$index] == FieldState.KILLED),
-                                    'damaged':(yourField[$parent.$index][$index] == FieldState.ATTACKED)
+                                    'attacked':(yourField[$parent.$index][$index] == FieldState.ATTACKED)
                                   }"
                             ng-mouseenter="takeShipHover($parent.$index, $index)"
                             ng-click="setShip()">
@@ -49,11 +55,6 @@
                 </tr>
             </tbody>
         </table>
-        <div ng-if="ready">
-            <button class="btn btn-primary">
-                Ready
-            </button>
-        </div>
     </div>
 </div>
 
@@ -71,9 +72,9 @@
             <td class="right-bordered">{{digitHeader}}</td>
             <td ng-repeat="item in enemyField[$index] track by $index" class="right-bordered top-bordered bottom-bordered left-bordered cell fieldCell"
                 ng-click="damage($event, $parent.$index, $index)" ng-class="{
-                    'isShip' : enemyField[$parent.$index][$index] == FieldState.HURT,
+                    'damaged' : enemyField[$parent.$index][$index] == FieldState.HURT,
                     'killed' : (enemyField[$parent.$index][$index] == FieldState.KILLED),
-                    'damaged':(enemyField[$parent.$index][$index] == FieldState.ATTACKED)
+                    'attacked':(enemyField[$parent.$index][$index] == FieldState.ATTACKED)
                 }">
 
             </td>

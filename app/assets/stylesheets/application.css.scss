@@ -16,6 +16,8 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+
 .cell{
   width: 30px;
   height: 30px;
@@ -46,6 +48,10 @@
   background-color: red;
 }
 
+.attacked{
+  background-color: blue;
+}
+
 .shipCell {
   display: inline-block;
   background-color: royalblue;
@@ -70,7 +76,7 @@
 }
 
 .isShip {
-  background-color: green;
+  background-color: gray;
 }
 
 .disabledSelect .shipCell{
@@ -78,9 +84,18 @@
 }
 
 .cantPut{
-  background-color: #B00100;
+  background-color: red;
 }
 
 .killed{
   background-color: #000000;
+}
+
+.ready_button{
+  margin-top: 10px;
+}
+
+.header > h1{
+  font-family: Courgette;
+  src: url(fonts/Courgette-Regular.ttf);
 }

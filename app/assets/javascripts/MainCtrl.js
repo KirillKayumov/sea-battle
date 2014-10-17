@@ -9,11 +9,16 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
     $scope.lettersHeader = ["", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
     $scope.yourShips = ["", 4, 3, 2, 1];
     $scope.takedShip = -1;
+    $scope.started = false;
     $scope.hoveredCells = [];
     //false - горизонтальная, true - вертикальная
     $scope.orientation = false;
     $scope.currentShip = [];
     $scope.ready = false;
+
+    $scope.setStarted = function(){
+        $scope.started = true;
+    };
 
     $scope.takeShip = function(num){
         if ($scope.yourShips[num] > 0)
@@ -88,6 +93,8 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
 
 
     $scope.damage = function($event, x, y){
+        if (!$scope.started)
+            return;
         if ($scope.enemyField[x][y] == FieldState.EMPTY){
             $($event.target).removeClass('fieldCell');
             $scope.enemyField[x][y] = FieldState.ATTACKED;
@@ -149,6 +156,7 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
         $scope.II.initialize();
         $scope.yourField = $scope.II.returnField().slice(0);
         $scope.yourShips= ["", 0, 0, 0, 0];
+        $scope.ready = true;
         $scope.II.initialize();
         $scope.IIfield = $scope.II.returnField();
     };
