@@ -99,3 +99,41 @@
   font-family: Courgette;
   src: url(fonts/Courgette-Regular.ttf);
 }
+
+
+.login{
+  width: 300px;
+  height: 210px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -110px;
+  margin-left: -150px;
+  box-shadow: 0px 0px 20px 1px darkgray;
+}
+
+.login td{
+  padding: 2px 35px 2px 2px;
+}
+
+.registration{
+  width: 400px;
+  height: 415px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -207px;
+  margin-left: -200px;
+  box-shadow: 0px 0px 20px 1px darkgray;
+
+}
+
+.registration table td{
+  padding: 2px 35px 2px 2px;
+  text-align: right;
+
+}
+
+td.deleteRightPadding, .deleteRightPadding{
+  padding-right: 0;
+}

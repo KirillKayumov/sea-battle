@@ -21,3 +21,5 @@
 //= require HelpService
 //= require IIService
 //= require MainCtrl
+//= require RegistrationCtrl
+//= require LoginCtrl
