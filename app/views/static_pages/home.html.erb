@@ -1,84 +1,86 @@
-<div class="col-md-6" xmlns="http://www.w3.org/1999/html">
-    <div class="col-md-4">
-        <div class="ships">
-            <div class="ships4"  ng-click="takeShip(4)"  ng-class="{takedShip: takedShip == 4, 'disabledSelect': yourShips[4]==0}">
-                <span ng-repeat="item in range(4) track by $index" class="cell shipCell"></span>
-                <span class="shipCount">x{{yourShips[4]}}</span>
+<div ng-controller="MainCtrl" class="col-md-offset-2 col-md-10">
+    <div class="col-md-6" xmlns="http://www.w3.org/1999/html">
+        <div class="col-md-4">
+            <div class="ships">
+                <div class="ships4"  ng-click="takeShip(4)"  ng-class="{takedShip: takedShip == 4, 'disabledSelect': yourShips[4]==0}">
+                    <span ng-repeat="item in range(4) track by $index" class="cell shipCell"></span>
+                    <span class="shipCount">x{{yourShips[4]}}</span>
+                </div>
+                <div class="ships3" ng-click="takeShip(3)"  ng-class="{takedShip: takedShip == 3, 'disabledSelect': yourShips[3]==0}">
+                    <span ng-repeat="item in range(3) track by $index" class="cell shipCell"></span>
+                    <span class="shipCount">x{{yourShips[3]}}</span>
+                </div>
+                <div class="ships2" ng-click="takeShip(2)"  ng-class="{takedShip: takedShip == 2, 'disabledSelect': yourShips[2]==0}">
+                    <span ng-repeat="item in range(2) track by $index" class="cell shipCell"></span>
+                    <span class="shipCount">x{{yourShips[2]}}</span>
+                </div>
+                <div class="ships1"  ng-click="takeShip(1)" ng-class="{takedShip: takedShip == 1, 'disabledSelect': yourShips[1]==0}">
+                    <span ng-repeat="item in range(1) track by $index" class="cell shipCell"></span>
+                    <span class="shipCount">x{{yourShips[1]}}</span>
+                </div>
             </div>
-            <div class="ships3" ng-click="takeShip(3)"  ng-class="{takedShip: takedShip == 3, 'disabledSelect': yourShips[3]==0}">
-                <span ng-repeat="item in range(3) track by $index" class="cell shipCell"></span>
-                <span class="shipCount">x{{yourShips[3]}}</span>
+            <div ng-if="!started">
+                <button ng-click="render()" class="btn btn-primary">Auto</button>
             </div>
-            <div class="ships2" ng-click="takeShip(2)"  ng-class="{takedShip: takedShip == 2, 'disabledSelect': yourShips[2]==0}">
-                <span ng-repeat="item in range(2) track by $index" class="cell shipCell"></span>
-                <span class="shipCount">x{{yourShips[2]}}</span>
-            </div>
-            <div class="ships1"  ng-click="takeShip(1)" ng-class="{takedShip: takedShip == 1, 'disabledSelect': yourShips[1]==0}">
-                <span ng-repeat="item in range(1) track by $index" class="cell shipCell"></span>
-                <span class="shipCount">x{{yourShips[1]}}</span>
-            </div>
-        </div>
-        <div ng-if="!started">
-            <button ng-click="render()" class="btn btn-primary">Auto</button>
-        </div>
 
-        <div ng-if="ready && !started" class="ready_button">
-            <button class="btn btn-primary" ng-click="setStarted()">
-                Ready
-            </button>
+            <div ng-if="ready && !started" class="ready_button">
+                <button class="btn btn-primary" ng-click="setStarted()">
+                    Ready
+                </button>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <table>
+                <thead>
+                    <tr>
+                        <th ng-repeat="letterHeader in lettersHeader" class="cell" ng-class="{'bottom-bordered': $index != 0}">
+                            {{letterHeader}}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="digitHeader in digitsHeader" class="cell">
+                        <td class="right-bordered">{{digitHeader}}</td>
+                        <td ng-repeat="item in digitsHeader" class="right-bordered top-bordered bottom-bordered left-bordered cell"
+                            ng-class="{
+                                        'isShip' : yourField[$parent.$index][$index] == FieldState.SHIP,
+                                        'hovered': hoveredCells[$parent.$index][$index] == FieldState.SHIP,
+                                        'damaged': ( yourField[$parent.$index][$index] == FieldState.SHIP_NEAR && takedShip != -1
+                                            ||yourField[$parent.$index][$index] == FieldState.HURT),
+                                        'killed' : (yourField[$parent.$index][$index] == FieldState.KILLED),
+                                        'attacked':(yourField[$parent.$index][$index] == FieldState.ATTACKED)
+                                      }"
+                                ng-mouseenter="takeShipHover($parent.$index, $index)"
+                                ng-click="setShip()">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
-    <div class="col-md-8">
+
+    <div class="col-md-6">
         <table>
             <thead>
-                <tr>
-                    <th ng-repeat="letterHeader in lettersHeader" class="cell" ng-class="{'bottom-bordered': $index != 0}">
-                        {{letterHeader}}
-                    </th>
-                </tr>
+            <tr>
+                <th ng-repeat="letterHeader in lettersHeader" class="cell" ng-class="{'bottom-bordered': $index != 0}">
+                    {{letterHeader}}
+                </th>
+            </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="digitHeader in digitsHeader" class="cell">
-                    <td class="right-bordered">{{digitHeader}}</td>
-                    <td ng-repeat="item in digitsHeader" class="right-bordered top-bordered bottom-bordered left-bordered cell"
-                        ng-class="{
-                                    'isShip' : yourField[$parent.$index][$index] == FieldState.SHIP,
-                                    'hovered': hoveredCells[$parent.$index][$index] == FieldState.SHIP,
-                                    'damaged': ( yourField[$parent.$index][$index] == FieldState.SHIP_NEAR && takedShip != -1
-                                        ||yourField[$parent.$index][$index] == FieldState.HURT),
-                                    'killed' : (yourField[$parent.$index][$index] == FieldState.KILLED),
-                                    'attacked':(yourField[$parent.$index][$index] == FieldState.ATTACKED)
-                                  }"
-                            ng-mouseenter="takeShipHover($parent.$index, $index)"
-                            ng-click="setShip()">
-                    </td>
-                </tr>
+            <tr ng-repeat="digitHeader in digitsHeader" class="cell">
+                <td class="right-bordered">{{digitHeader}}</td>
+                <td ng-repeat="item in enemyField[$index] track by $index" class="right-bordered top-bordered bottom-bordered left-bordered cell fieldCell"
+                    ng-click="damage($event, $parent.$index, $index)" ng-class="{
+                        'damaged' : enemyField[$parent.$index][$index] == FieldState.HURT,
+                        'killed' : (enemyField[$parent.$index][$index] == FieldState.KILLED),
+                        'attacked':(enemyField[$parent.$index][$index] == FieldState.ATTACKED)
+                    }">
+
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>
-</div>
-
-<div class="col-md-6">
-    <table>
-        <thead>
-        <tr>
-            <th ng-repeat="letterHeader in lettersHeader" class="cell" ng-class="{'bottom-bordered': $index != 0}">
-                {{letterHeader}}
-            </th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="digitHeader in digitsHeader" class="cell">
-            <td class="right-bordered">{{digitHeader}}</td>
-            <td ng-repeat="item in enemyField[$index] track by $index" class="right-bordered top-bordered bottom-bordered left-bordered cell fieldCell"
-                ng-click="damage($event, $parent.$index, $index)" ng-class="{
-                    'damaged' : enemyField[$parent.$index][$index] == FieldState.HURT,
-                    'killed' : (enemyField[$parent.$index][$index] == FieldState.KILLED),
-                    'attacked':(enemyField[$parent.$index][$index] == FieldState.ATTACKED)
-                }">
-
-            </td>
-        </tr>
-        </tbody>
-    </table>
 </div>
