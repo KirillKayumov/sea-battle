@@ -102,30 +102,32 @@
 
 
 .login{
+  padding: 10px;
   width: 300px;
-  height: 210px;
+  height: 300px;
   position: fixed;
   top: 50%;
   left: 50%;
-  margin-top: -110px;
+  margin-top: -150px;
   margin-left: -150px;
   box-shadow: 0px 0px 20px 1px darkgray;
 }
 
-.login td{
-  padding: 2px 35px 2px 2px;
+.login .btn,
+.registration .btn{
+  margin-top: 5px;
 }
 
 .registration{
-  width: 400px;
-  height: 415px;
+  padding: 10px;
+  width: 300px;
+  height: 330px;
   position: fixed;
   top: 50%;
   left: 50%;
-  margin-top: -207px;
-  margin-left: -200px;
+  margin-top: -165px;
+  margin-left: -150px;
   box-shadow: 0px 0px 20px 1px darkgray;
-
 }
 
 .registration table td{

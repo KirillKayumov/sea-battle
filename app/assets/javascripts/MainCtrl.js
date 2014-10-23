@@ -52,6 +52,7 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
     });
 
 
+
     $scope.takeShipHover = function(x, y){
         if ($scope.takedShip == -1)
             return;
