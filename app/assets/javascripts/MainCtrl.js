@@ -51,6 +51,10 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
         }
     });
 
+    jQuery(document).ready(function(){
+        $('.toolbar').height($('.col-md-8').height());
+    });
+
 
 
     $scope.takeShipHover = function(x, y){
@@ -155,6 +159,7 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
 
     $scope.render = function(){
         $scope.II.initialize();
+        $scope.takedShip = -1;
         $scope.yourField = $scope.II.returnField().slice(0);
         $scope.yourShips= ["", 0, 0, 0, 0];
         $scope.ready = true;
