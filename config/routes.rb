@@ -6,13 +6,8 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'static_pages#home'
 
-  namespace :api, defaults: { format: 'json' } do
-    namespace :v1 do
-      resources :games do
-        resources :turns
-        get 'turns/last', to: 'turns#last'
-      end
-    end
+  resources :games, only: [:new, :create, :destroy] do
+    resources :turns
   end
 
   # Example of regular route:
