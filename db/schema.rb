@@ -17,16 +17,16 @@ ActiveRecord::Schema.define(version: 20141013190136) do
   enable_extension "plpgsql"
 
   create_table "games", force: true do |t|
-    t.integer  "user1_id"
-    t.integer  "user2_id"
+    t.integer  "sender_id"
+    t.integer  "receiver_id"
     t.integer  "winner_id"
-    t.integer  "status"
+    t.integer  "status",      default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "turns", force: true do |t|
-    t.integer  "user_id"
+    t.integer  "performer_id"
     t.integer  "game_id"
     t.integer  "row"
     t.integer  "column"
@@ -38,6 +38,11 @@ ActiveRecord::Schema.define(version: 20141013190136) do
     t.string   "email",               default: "", null: false
     t.string   "encrypted_password",  default: "", null: false
     t.datetime "remember_created_at"
+    t.integer  "sign_in_count",       default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
