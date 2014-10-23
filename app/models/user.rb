@@ -3,6 +3,5 @@ class User < ActiveRecord::Base
          :registerable,
          :rememberable,
          :trackable,
-         :timeoutable,
          :validatable
 end
