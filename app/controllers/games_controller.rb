@@ -1,6 +1,7 @@
 class GamesController < ApplicationController
   def new
     @online_users = User.where('last_active_at >= ?', 5.minutes.ago)
+                        .where.not(id: current_user.id)
   end
 
   def show
@@ -23,5 +24,11 @@ class GamesController < ApplicationController
     Game.create(sender_id: current_user.id,
                 receiver_id: params[:receiver_id])
     render json: game
+  end
+
+  def destroy
+    game = Game.find(params[:id])
+    game.destroy
+    render nothing: true
   end
 end
