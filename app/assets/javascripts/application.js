@@ -21,6 +21,7 @@
 //= require FieldStatesService
 //= require HelpService
 //= require IIService
+//= require GameCtrl
 //= require MainCtrl
 //= require RegistrationCtrl
 //= require LoginCtrl

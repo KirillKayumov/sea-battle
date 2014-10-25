@@ -15,6 +15,7 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
     $scope.orientation = false;
     $scope.currentShip = [];
     $scope.ready = false;
+    $scope.appTimer = null;
 
     $scope.setStarted = function(){
         $scope.started = true;
@@ -112,8 +113,13 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
                     $scope.enemyField[array[i].x][array[i].y] = FieldState.KILLED;
                 }
             }
-            if (status == FieldState.ATTACKED)
-                attack();
+            if (status == FieldState.ATTACKED){
+                if ($scope.gameType == 'C')
+                    attack();
+                else{
+
+                }
+            }
         }
     };
 

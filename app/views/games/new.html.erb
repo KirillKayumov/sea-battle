@@ -1,5 +1,15 @@
-<% @online_users.each do |user| %>
-  <p>
-  <%= user.email %>
-  </p>
-<% end %>
+
+<div class="new-game panel panel-default" ng-controller="GameCtrl">
+    <h2 class="text-center">Online users</h2>
+    <div class="online-users">
+        <% @online_users.each do |user| %>
+        <div class="user" ng-click="tryStartWithUser(<%= user.id %>)">
+            <%= user.email %>
+        </div>
+        <% end %>
+    </div>
+    <script>
+        jQuery('.new-game').height($('.user').length * 30 + 90);
+    </script>
+    <button class="btn btn-default" ng-click="playWithComputer()">Play with computer</button>
+</div>

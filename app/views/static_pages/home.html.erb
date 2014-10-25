@@ -32,60 +32,67 @@
                         Ready
                     </button>
                 </div>
+                <div ng-if="appTimer != null">
+                    <h4> {{appTimer}} сек</h4>
+                </div>
             </div>
             <div class="col-md-8">
-                <table>
-                    <thead>
-                        <tr>
-                            <th ng-repeat="letterHeader in lettersHeader" class="cell" ng-class="{'bottom-bordered': $index != 0}">
-                                {{letterHeader}}
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="digitHeader in digitsHeader" class="cell">
-                            <td class="right-bordered">{{digitHeader}}</td>
-                            <td ng-repeat="item in digitsHeader" class="right-bordered top-bordered bottom-bordered left-bordered cell"
-                                ng-class="{
-                                            'isShip' : yourField[$parent.$index][$index] == FieldState.SHIP,
-                                            'hovered': hoveredCells[$parent.$index][$index] == FieldState.SHIP,
-                                            'damaged': ( yourField[$parent.$index][$index] == FieldState.SHIP_NEAR && takedShip != -1
-                                                ||yourField[$parent.$index][$index] == FieldState.HURT),
-                                            'killed' : (yourField[$parent.$index][$index] == FieldState.KILLED),
-                                            'attacked':(yourField[$parent.$index][$index] == FieldState.ATTACKED)
-                                          }"
-                                    ng-mouseenter="takeShipHover($parent.$index, $index)"
-                                    ng-click="setShip()">
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="<!--panel panel-default--> fields">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th ng-repeat="letterHeader in lettersHeader" class="cell" ng-class="{'bottom-bordered': $index != 0}">
+                                    {{letterHeader}}
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="digitHeader in digitsHeader" class="cell">
+                                <td class="right-bordered">{{digitHeader}}</td>
+                                <td ng-repeat="item in digitsHeader" class="right-bordered top-bordered bottom-bordered left-bordered cell"
+                                    ng-class="{
+                                                'isShip' : yourField[$parent.$index][$index] == FieldState.SHIP,
+                                                'hovered': hoveredCells[$parent.$index][$index] == FieldState.SHIP,
+                                                'damaged': ( yourField[$parent.$index][$index] == FieldState.SHIP_NEAR && takedShip != -1
+                                                    ||yourField[$parent.$index][$index] == FieldState.HURT),
+                                                'killed' : (yourField[$parent.$index][$index] == FieldState.KILLED),
+                                                'attacked':(yourField[$parent.$index][$index] == FieldState.ATTACKED)
+                                              }"
+                                        ng-mouseenter="takeShipHover($parent.$index, $index)"
+                                        ng-click="setShip()">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
         <div class="col-md-6">
-            <table>
-                <thead>
-                <tr>
-                    <th ng-repeat="letterHeader in lettersHeader" class="cell" ng-class="{'bottom-bordered': $index != 0}">
-                        {{letterHeader}}
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="digitHeader in digitsHeader" class="cell">
-                    <td class="right-bordered">{{digitHeader}}</td>
-                    <td ng-repeat="item in enemyField[$index] track by $index" class="right-bordered top-bordered bottom-bordered left-bordered cell fieldCell"
-                        ng-click="damage($event, $parent.$index, $index)" ng-class="{
-                            'damaged' : enemyField[$parent.$index][$index] == FieldState.HURT,
-                            'killed' : (enemyField[$parent.$index][$index] == FieldState.KILLED),
-                            'attacked':(enemyField[$parent.$index][$index] == FieldState.ATTACKED)
-                        }">
+            <div class="<!--panel panel-default -->fields">
+                <table>
+                    <thead>
+                    <tr>
+                        <th ng-repeat="letterHeader in lettersHeader" class="cell" ng-class="{'bottom-bordered': $index != 0}">
+                            {{letterHeader}}
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="digitHeader in digitsHeader" class="cell">
+                        <td class="right-bordered">{{digitHeader}}</td>
+                        <td ng-repeat="item in enemyField[$index] track by $index" class="right-bordered top-bordered bottom-bordered left-bordered cell fieldCell"
+                            ng-click="damage($event, $parent.$index, $index)" ng-class="{
+                                'damaged' : enemyField[$parent.$index][$index] == FieldState.HURT,
+                                'killed' : (enemyField[$parent.$index][$index] == FieldState.KILLED),
+                                'attacked':(enemyField[$parent.$index][$index] == FieldState.ATTACKED)
+                            }">
 
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

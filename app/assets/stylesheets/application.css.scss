@@ -121,11 +121,11 @@
 .registration{
   padding: 10px;
   width: 300px;
-  height: 330px;
+  height: 370px;
   position: fixed;
   top: 50%;
   left: 50%;
-  margin-top: -165px;
+  margin-top: -185px;
   margin-left: -150px;
   box-shadow: 0px 0px 20px 1px darkgray;
 }
@@ -141,6 +141,48 @@ td.deleteRightPadding, .deleteRightPadding{
 }
 
 
-.toolbar{
+.toolbar {
   border-right: 2px solid #BBBBBB;
 }
+
+.new-game {
+  position: absolute;
+  padding: 10px;
+  min-width: 300px;
+  max-width: 300px;
+  min-height: 330px;
+  left: 50%;
+  margin-left: -150px;
+  box-shadow: 0px 0px 20px 1px darkgray;
+}
+
+.user{
+  padding: 3px 3px 3px 10px;
+  height: 25px;
+  margin-bottom: 2px;
+  position: relative; 
+  left: -10px;
+  width: 298px;
+  cursor: pointer;
+}
+
+.user:hover{
+  background-color: #eeeeee;
+}
+
+
+.user span{
+  padding-left: 20px;
+}
+
+.new-game .btn{
+  position: absolute;
+  bottom: 30px;
+}
+
+//.fields{
+//  padding: 5px;
+//  width: 350px;
+//  height: 350px;
+////  box-shadow: 0px 0px 20px 1px darkgray;
+//}
