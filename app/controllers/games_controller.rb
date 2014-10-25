@@ -15,7 +15,7 @@ class GamesController < ApplicationController
   end
 
   def confirm
-    game = Game.find(params[:game_id])
+    game = Game.find(params[:id])
     game.update_attributes(status: 1)
     render json: game
   end
