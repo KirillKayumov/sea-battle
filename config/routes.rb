@@ -6,7 +6,9 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'static_pages#home'
 
-  resources :games, only: [:new, :create, :destroy] do
+  get '/invites', to: 'games#invites'
+  post '/confirm', to: 'games#confirm'
+  resources :games do
     resources :turns
   end
 

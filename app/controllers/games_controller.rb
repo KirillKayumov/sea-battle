@@ -3,6 +3,25 @@ class GamesController < ApplicationController
     @online_users = User.where('last_active_at >= ?', 5.minutes.ago)
   end
 
+  def show
+    game = Game.find(params[:game_id])
+    render json: game
+  end
+
+  def invites
+    render json: Game.where(receiver_id: current_user.id,
+                            status: 0)
+  end
+
+  def confirm
+    game = Game.find(params[:game_id])
+    game.update_attributes(status: 1)
+    render json: game
+  end
+
   def create
+    Game.create(sender_id: current_user.id,
+                receiver_id: params[:receiver_id])
+    render json: game
   end
 end
