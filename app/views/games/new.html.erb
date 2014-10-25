@@ -3,7 +3,8 @@
     <h2 class="text-center">Online users</h2>
     <div class="online-users">
         <% @online_users.each do |user| %>
-        <div class="user" ng-click="tryStartWithUser(<%= user.id %>)">
+        <div class="user" ng-click="tryStartWithUser(<%= user.id %>)"
+             ng-class="{inviteYou: isInviteYou(<%= user.id %>)}">
             <%= user.email %>
         </div>
         <% end %>

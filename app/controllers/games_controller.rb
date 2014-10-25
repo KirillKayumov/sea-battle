@@ -1,10 +1,11 @@
 class GamesController < ApplicationController
   def new
     @online_users = User.where('last_active_at >= ?', 5.minutes.ago)
+    @online_users.delete(current_user)
   end
 
   def show
-    game = Game.find(params[:game_id])
+    game = Game.find(params[:id])
     render json: game
   end
 
@@ -20,7 +21,7 @@ class GamesController < ApplicationController
   end
 
   def create
-    Game.create(sender_id: current_user.id,
+    game = Game.create(sender_id: current_user.id,
                 receiver_id: params[:receiver_id])
     render json: game
   end
