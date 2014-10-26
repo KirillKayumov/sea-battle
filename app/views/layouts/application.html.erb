@@ -8,7 +8,23 @@
 </head>
 <body ng-controller="AppCtrl">
 <% if current_user %>
-<%= link_to 'Sign out', destroy_user_session_path, method: :delete, class:"btn btn-primary" %>
+<div class="header">
+    <div class="container-fluid">
+        <ul class="nav nav-pills pull-right btn-sm">
+            <li><a href="/games/new">New game</a></li>
+            <li><%= link_to 'Sign out', destroy_user_session_path, method: :delete %></li>
+        </ul>
+    </div>
+</div>
+<% else %>
+<div class="header">
+    <div class="container-fluid">
+        <ul class="nav nav-pills pull-right btn-sm">
+            <li><a href="/users/sign_up">Registration</a></li>
+            <li><a href="/users/sign_in">Sign in</a></li>
+        </ul>
+    </div>
+</div>
 <% end %>
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
