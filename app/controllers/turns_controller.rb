@@ -16,8 +16,10 @@ class TurnsController < ApplicationController
 
   def check
     turn = Turn.where(game_id: params[:game_id]).last
-    turn.update_attributes(status: -1000) if turn
     render json: turn
+    if turn && turn.status == nil
+      turn.update_attributes(status: -1000)
+    end
   end
 
   def confirm
