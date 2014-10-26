@@ -26,8 +26,17 @@
     </div>
 </div>
 <% end %>
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
+
+  <% if notice %>
+    <p class="alert alert-success"><%= notice %></p>
+  <% end %>
+  <% if alert %>
+    <p class="alert alert-danger"><%= alert %></p>
+  <% end %>
+
+  <p class="alert"></p>
+  <p class="notice"></p>
+
   <div class="main col-md-12">
             <%= yield %>
   </div>

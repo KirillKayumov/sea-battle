@@ -152,6 +152,7 @@ td.deleteRightPadding, .deleteRightPadding{
   max-width: 300px;
   min-height: 330px;
   left: 50%;
+  // margin-top: 5%;
   margin-left: -150px;
   box-shadow: 0px 0px 20px 1px darkgray;
 }
@@ -160,7 +161,7 @@ td.deleteRightPadding, .deleteRightPadding{
   padding: 3px 3px 3px 10px;
   height: 25px;
   margin-bottom: 2px;
-  position: relative; 
+  position: relative;
   left: -10px;
   width: 298px;
   cursor: pointer;
@@ -199,9 +200,15 @@ td.deleteRightPadding, .deleteRightPadding{
   color: green;
   cursor: pointer;
 }
-//.fields{
-//  padding: 5px;
-//  width: 350px;
-//  height: 350px;
-////  box-shadow: 0px 0px 20px 1px darkgray;
-//}
+
+.alert-danger, .alert-success {
+  margin: 0 auto;
+  width: 400px;
+  text-align: center;
+  margin-top: -20px;
+}
+
+.nickname{
+  color: blue;
+  font-weight: 600;
+}
