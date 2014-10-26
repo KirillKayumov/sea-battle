@@ -289,6 +289,8 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
     });
 
     jQuery( window ).unload(function() {
+        if ($scope.yourField == 0 || $scope.enemyField == 0)
+            return;
         $http.delete('/games/' + $scope.App.gameId + '.json');
     });
 
