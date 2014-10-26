@@ -51,7 +51,7 @@ class GamesController < ApplicationController
 
   def destroy
     game = Game.find(params[:id])
-    game.destroy
+    game.destroy if game.status != 3
     render nothing: true
   end
 
