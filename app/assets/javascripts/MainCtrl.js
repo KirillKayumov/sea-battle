@@ -265,16 +265,17 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
     };
 
     $scope.$watch("yourShipCount", function(newValue){
-        if (newValue == 0)
+        if (newValue == 0){
             alert("You lose");
-        if ($scope.App.gameType == 'P'){
             $http.get('/games/' + $scope.App.gameId + '/finish.json', {});
+            window.location = '/games/new';
         }
     });
 
     $scope.$watch("enemyShipCount", function(newValue){
         if (newValue == 0)
             alert("You win");
+            window.location = '/games/new';
         });
 
 }]);

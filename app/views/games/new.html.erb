@@ -3,9 +3,12 @@
     <h2 class="text-center">Online users</h2>
     <div class="online-users">
         <% @online_users.each do |user| %>
-        <div class="user" ng-click="tryStartWithUser(<%= user.id %>)"
-             ng-class="{inviteYou: isInviteYou(<%= user.id %>)}">
-            <%= user.nickname %>
+        <div class="user-block">
+            <div class="user" ng-click="tryStartWithUser(<%= user.id %>)"><%= user.nickname %></div>
+            <div ng-if=" isInviteYou(<%= user.id %>)">
+                <span class="glyphicon glyphicon-ok pull-right" ng-click="tryStartWithUser(<%= user.id %>)">Принять</span>
+                <span class="glyphicon glyphicon-remove pull-right" ng-click="declain(<%= user.id %>)">Отклонить</span>
+            </div>
         </div>
         <% end %>
     </div>
