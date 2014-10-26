@@ -5,7 +5,7 @@
         <% @online_users.each do |user| %>
         <div class="user" ng-click="tryStartWithUser(<%= user.id %>)"
              ng-class="{inviteYou: isInviteYou(<%= user.id %>)}">
-            <%= user.email %>
+            <%= user.nickname %>
         </div>
         <% end %>
     </div>
