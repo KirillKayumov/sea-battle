@@ -43,6 +43,11 @@ class GamesController < ApplicationController
     render json: game
   end
 
+  def user_game
+    game = Game.where('sender_id = ? OR receiver_id = ?', current_user.id, current_user.id).last
+    render json: { game: game, step: game.receiver_id == current_user.id }
+  end
+
   def destroy
     game = Game.find(params[:id])
     game.destroy
