@@ -185,6 +185,20 @@ td.deleteRightPadding, .deleteRightPadding{
   color: red;
 }
 
+
+.glyphicon{
+  padding-left: 10px;
+}
+
+.glyphicon.glyphicon-remove{
+  color: red;
+  cursor: pointer;
+}
+
+.glyphicon.glyphicon-ok{
+  color: green;
+  cursor: pointer;
+}
 //.fields{
 //  padding: 5px;
 //  width: 350px;

@@ -46,6 +46,9 @@ app.controller('GameCtrl', ['$scope', '$http', '$location', function ($scope,  $
                         $scope.App.isYourStep = false;
                         window.location = '/';
                     }
+                })
+                .error(function(data, status, headers, config) {
+                    jQuery('#myModal').modal('hide');
                 });
             if ($scope.gameStartTimer == 0){
                 jQuery('#myModal').modal('hide');
@@ -77,5 +80,14 @@ app.controller('GameCtrl', ['$scope', '$http', '$location', function ($scope,  $
         $http.delete('/games/' +$scope.waitGame + '.json');
         $scope.waitGame = -1;
         $scope.$apply();
-    })
+    });
+
+    $scope.declain = function(id){
+        for (var i = 0; i < $scope.invites.length; i++)
+            if ($scope.invites[i].sender_id == id){
+                $http.delete('/games/' +$scope.invites[i].id + '.json');
+                return;
+            }
+
+    }
 }]);
