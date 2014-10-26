@@ -9,7 +9,11 @@ Rails.application.routes.draw do
   resources :games do
     post '/confirm', to: 'games#confirm'
     get '/invites', to: 'games#invites', on: :collection
-    resources :turns
+    get '/finish', to: 'games#finish'
+    resources :turns do
+      post '/confirm', to: 'turns#confirm'
+      get '/check', to: 'turns#check', on: :collection
+    end
   end
 
   # Example of regular route:

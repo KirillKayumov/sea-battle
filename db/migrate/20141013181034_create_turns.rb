@@ -3,8 +3,9 @@ class CreateTurns < ActiveRecord::Migration
     create_table :turns do |t|
       t.integer :performer_id
       t.integer :game_id
-      t.integer :row
-      t.integer :column
+      t.integer :x
+      t.integer :y
+      t.integer :status
 
       t.timestamps
     end
