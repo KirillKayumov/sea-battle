@@ -70,7 +70,7 @@ app.controller('GameCtrl', ['$scope', '$http', '$location', function ($scope,  $
         $scope.App.gameType = 'C';
         window.location = '/';
     };
-
+    $scope.getInvites();
     setInterval($scope.getInvites, 1000);
 
 
@@ -82,12 +82,14 @@ app.controller('GameCtrl', ['$scope', '$http', '$location', function ($scope,  $
         $scope.$apply();
     });
 
-    $scope.declain = function(id){
+    $scope.declain = function(id) {
         for (var i = 0; i < $scope.invites.length; i++)
-            if ($scope.invites[i].sender_id == id){
-                $http.delete('/games/' +$scope.invites[i].id + '.json');
+            if ($scope.invites[i].sender_id == id) {
+                $http.delete('/games/' + $scope.invites[i].id + '.json');
                 return;
             }
 
-    }
+    };
+
+    setTimeout(function(){window.location = '/games/new'}, 5000);
 }]);
