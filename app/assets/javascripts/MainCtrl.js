@@ -124,9 +124,11 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
     $scope.checkMyStep = function(){
         $http.get('/games/' + $scope.App.gameId + '/turns/' + $scope.lastAttack.id + '.json',{})
             .success(function(data){
-                if (data.status == null || data.status == -1000)
+
+                if (data.status == null || data.status == -1000) {
+                    setTimeout($scope.checkMyStep, 200);
                     return;
-                clearInterval($scope.checkMyStepInterval);
+                }
                 $scope.enemyField[$scope.lastAttack.x][$scope.lastAttack.y] = data.status;
                 if (data.status == FieldState.KILLED){
                     var array = HelpService.findConnectedCells($scope.lastAttack.x, $scope.lastAttack.y, $scope.enemyField);
@@ -158,7 +160,7 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
         $http.post('/games/' + $scope.App.gameId + '/turns.json',{x: x, y: y})
             .success(function(data){
                 $scope.lastAttack = data;
-                $scope.checkMyStepInterval = setInterval($scope.checkMyStep, 500);
+                setTimeout($scope.checkMyStep, 200);
             });
     };
 
