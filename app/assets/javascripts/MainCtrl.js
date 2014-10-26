@@ -270,11 +270,9 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
 
     $scope.$watch("yourShipCount", function(newValue){
         if (newValue == 0 && $scope.started){
+            $http.get('/games/' + $scope.App.gameId + '/finish.json', {});
             alert("You lose");
-            setTimeout(function(){
-                $http.get('/games/' + $scope.App.gameId + '/finish.json', {});
-            },5000);
-            window.location = '/games/new';
+            setTimeout(function(){window.location = '/games/new';}, 5000);
         }
     });
 
