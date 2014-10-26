@@ -288,4 +288,8 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
         }
     });
 
+    jQuery( window ).unload(function() {
+        $http.delete('/games/' + $scope.App.gameId + '.json');
+    });
+
 }]);
