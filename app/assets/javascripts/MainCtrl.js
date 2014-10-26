@@ -20,7 +20,7 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
     $scope.noSteps = false;
     $http.get('/games/user_game.json')
         .success(function(data){
-            if (data.status > 1)
+            if (data.game.status > 1)
                 return;
             $scope.App.isYourStep = data.step;
             $scope.App.gameType = 'P';
@@ -164,8 +164,8 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
     $scope.damage = function($event, x, y){
         if (!$scope.started || !$scope.App.isYourStep || $scope.noSteps)
             return;
-        $($event.target).removeClass('fieldCell');
         if ($scope.enemyField[x][y] == FieldState.EMPTY){
+            $($event.target).removeClass('fieldCell');
             if ($scope.App.gameType == 'P'){
                 $scope.noSteps = true;
                 $scope.attackPlayer(x, y);
