@@ -5,7 +5,7 @@ class GamesController < ApplicationController
   end
 
   def show
-    game = Game.find(params[:game_id])
+    game = Game.find(params[:id])
     render json: game
   end
 
@@ -15,13 +15,13 @@ class GamesController < ApplicationController
   end
 
   def confirm
-    game = Game.find(params[:id])
+    game = Game.find(params[:game_id])
     game.update_attributes(status: 1)
     render json: game
   end
 
   def create
-    Game.create(sender_id: current_user.id,
+    game = Game.create(sender_id: current_user.id,
                 receiver_id: params[:receiver_id])
     render json: game
   end

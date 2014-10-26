@@ -3,18 +3,22 @@ app.controller('GameCtrl', ['$scope', '$http', '$location', function ($scope,  $
     var canStartGame = true;
     $scope.waitGame = -1;
     $scope.invites = [];
+    $scope.gameStartTimer = 30;
     $scope.tryStartWithUser = function(id){
         if (canStartGame){
             if ($scope.isInviteYou(id)){
-                $http.post('/confirm.json',{game_id: $scope.isInviteYou(id)})
+                $http.post('/games/' + $scope.isInviteYou(id) + '/confirm.json',{})
                     .success(function(data){
                         window.location = '/';
                     });
             } else{
                 canStartGame = false;
+                $scope.gameStartTimer = 30;
                 $http.post('/games.json', {receiver_id: id}).success(function(data){
                     $scope.waitGame = data.id;
                     $scope.gameInterval = setInterval($scope.getGameStatus, 1000);
+                    jQuery('#myModal').modal('show');
+                    jQuery('.timer').html('Wait ' + $scope.gameStartTimer + ' sec');
                 });
             }
         }
@@ -29,6 +33,8 @@ app.controller('GameCtrl', ['$scope', '$http', '$location', function ($scope,  $
 
     $scope.getGameStatus = function(){
         if ($scope.waitGame != -1){
+            $scope.gameStartTimer--;
+            jQuery('.timer').html('Wait ' + $scope.gameStartTimer + ' sec');
             $http.get('/games/' + $scope.waitGame + '.json')
                 .success(function(data, status, headers, config) {
                     if (data.status == 1){
@@ -36,11 +42,14 @@ app.controller('GameCtrl', ['$scope', '$http', '$location', function ($scope,  $
                         window.location = '/';
                     }
                 });
+            if ($scope.gameStartTimer == 0){
+                jQuery('#myModal').modal('hide');
+            }
         }
     };
 
     $scope.getInvites = function(){
-        $http.get('/invites.json', {}).success(function(data){
+        $http.get('/games/invites.json', {}).success(function(data){
             $scope.invites = data;
         })
     };
@@ -52,7 +61,16 @@ app.controller('GameCtrl', ['$scope', '$http', '$location', function ($scope,  $
     $scope.playWithComputer = function(){
         $scope.gameType = 'C';
         window.location = '/'
-    }
+    };
 
     setInterval($scope.getInvites, 1000);
+
+
+    jQuery('#myModal').on('hidden.bs.modal', function (e) {
+        canStartGame = true;
+        clearInterval($scope.gameInterval);
+        $http.delete('/games/' +$scope.waitGame + '.json');
+        $scope.waitGame = -1;
+        $scope.$apply();
+    })
 }]);
