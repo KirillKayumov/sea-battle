@@ -60,9 +60,9 @@ class GamesController < ApplicationController
     game.update_attributes(status: 3)
 
     if game.sender_id == current_user.id
-      game.update_attributes(winner_id: receiver_id)
+      game.update_attributes(winner_id: game.receiver_id)
     else
-      game.update_attributes(winner_id: sender_id)
+      game.update_attributes(winner_id: game.sender_id)
     end
 
     render nothing: true
