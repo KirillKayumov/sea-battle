@@ -35,7 +35,7 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
             $http.get('/games/' + $scope.App.gameId + '/ready.json', {})
                 .success(function(data){
                     if (data.status != 2)
-                        $scope.checkIsEnemyReadyInterval = setInterval($scope.checkIsEnemyReady, 200);
+                        $scope.checkIsEnemyReadyInterval = setInterval($scope.checkIsEnemyReady, 500);
                     else{
                         $scope.started = true;
                         if (!$scope.App.isYourStep)
@@ -158,7 +158,7 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
         $http.post('/games/' + $scope.App.gameId + '/turns.json',{x: x, y: y})
             .success(function(data){
                 $scope.lastAttack = data;
-                $scope.checkMyStepInterval = setInterval($scope.checkMyStep, 200);
+                $scope.checkMyStepInterval = setInterval($scope.checkMyStep, 500);
             });
     };
 
@@ -271,7 +271,7 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
             alert("You lose");
             setTimeout(function(){
                 $http.get('/games/' + $scope.App.gameId + '/finish.json', {});
-            },2000);
+            },5000);
             window.location = '/games/new';
         }
     });
@@ -281,7 +281,7 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
             alert("You win");
             setTimeout(function(){
                 $http.get('/games/' + $scope.App.gameId + '/finish.json', {});
-            },2000);
+            },5000);
             window.location = '/games/new';
         }
     });
