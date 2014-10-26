@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div ng-if="!started && wait == ''">
-                    <small class="">Press "R" for change orientation</small>
+                    <small class="">Press "R" button to change orientation</small>
                     <br>
                     <button ng-click="render()" class="btn btn-primary">Auto</button>
                 </div>
@@ -33,16 +33,16 @@
                     </button>
                 </div>
                 <div ng-if="App.isYourStep && started">
-                    <h4> Ваш ход </h4>
+                    <h4>Your turn</h4>
                 </div>
                 <div ng-if="!App.isYourStep && started">
-                    <h4> Ход соперника</h4>
+                    <h4>Turn of the opponent</h4>
                 </div>
                 <div ng-if="wait != '' && !started">
-                    <h4> Ожидание соперника</h4>
+                    <h4>Waiting for the opponent</h4>
                 </div>
                 <div ng-if="appTimer != null">
-                    <h4> {{appTimer}} сек</h4>
+                    <h4> {{appTimer}} sec.</h4>
                 </div>
             </div>
             <div class="col-md-8">
