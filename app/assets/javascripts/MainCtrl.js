@@ -20,6 +20,8 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
     $scope.noSteps = false;
     $http.get('/games/user_game.json')
         .success(function(data){
+            if (data.status > 1)
+                return;
             $scope.App.isYourStep = data.step;
             $scope.App.gameType = 'P';
             $scope.App.gameId = data.game.id;
