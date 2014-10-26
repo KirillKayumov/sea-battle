@@ -26,7 +26,8 @@ app.service('HelpService', ['FieldState', function(FieldState){
                             yourField[xx][yy] = FieldState.SHIP_NEAR;
                             if (typeof canAttackCells !== 'undefined'){
                                 yourField[xx][yy] = FieldState.ATTACKED;
-                                canAttackCells.splice(this.cellNumber(canAttackCells,xx, yy), 1);
+                                if (this.cellNumber(canAttackCells, xx, yy) != -1)
+                                    canAttackCells.splice(this.cellNumber(canAttackCells, xx, yy), 1);
                             }
                         }
                     }

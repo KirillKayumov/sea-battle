@@ -6,12 +6,14 @@
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
 </head>
-<body>
-
+<body ng-controller="AppCtrl">
+<% if current_user %>
+<%= link_to 'Sign out', destroy_user_session_path, method: :delete, class:"btn btn-primary" %>
+<% end %>
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
-  <div ng-controller="MainCtrl" class="col-md-offset-2 col-md-10">
-    <%= yield %>
+  <div class="main col-md-12">
+            <%= yield %>
   </div>
 
 </body>

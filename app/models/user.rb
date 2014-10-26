@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable,
          :registerable,
          :rememberable,
-         :timeoutable,
+         :trackable,
          :validatable
+
+  has_many :turns, dependent: :destroy
 end

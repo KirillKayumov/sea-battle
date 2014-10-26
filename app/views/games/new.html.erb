@@ -1,0 +1,32 @@
+
+<div class="new-game panel panel-default" ng-controller="GameCtrl">
+    <h2 class="text-center">Online users</h2>
+    <div class="online-users">
+        <% @online_users.each do |user| %>
+        <div class="user" ng-click="tryStartWithUser(<%= user.id %>)"
+             ng-class="{inviteYou: isInviteYou(<%= user.id %>)}">
+            <%= user.email %>
+        </div>
+        <% end %>
+    </div>
+    <script>
+        jQuery('.new-game').height($('.user').length * 30 + 90);
+    </script>
+    <button class="btn btn-default" ng-click="playWithComputer()">Play with computer</button>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <span class="timer"></span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel game</button>
+            </div>
+        </div>
+    </div>
+</div>

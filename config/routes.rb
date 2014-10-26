@@ -6,6 +6,18 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'static_pages#home'
 
+  resources :games do
+    post '/confirm', to: 'games#confirm'
+    get '/invites', to: 'games#invites', on: :collection
+    get '/finish', to: 'games#finish'
+    get '/ready', to: 'games#ready'
+    get '/user_game', to: 'games#user_game', on: :collection
+    resources :turns do
+      post '/confirm', to: 'turns#confirm'
+      get '/check', to: 'turns#check', on: :collection
+    end
+  end
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

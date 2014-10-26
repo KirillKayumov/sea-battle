@@ -16,6 +16,8 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+
 .cell{
   width: 30px;
   height: 30px;
@@ -46,6 +48,10 @@
   background-color: red;
 }
 
+.attacked{
+  background-color: blue;
+}
+
 .shipCell {
   display: inline-block;
   background-color: royalblue;
@@ -70,7 +76,7 @@
 }
 
 .isShip {
-  background-color: green;
+  background-color: gray;
 }
 
 .disabledSelect .shipCell{
@@ -78,9 +84,110 @@
 }
 
 .cantPut{
-  background-color: #B00100;
+  background-color: red;
 }
 
 .killed{
   background-color: #000000;
 }
+
+.ready_button{
+  margin-top: 10px;
+}
+
+.header > h1{
+  font-family: Courgette;
+  src: url(fonts/Courgette-Regular.ttf);
+}
+
+
+.login{
+  padding: 10px;
+  width: 300px;
+  height: 300px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -150px;
+  margin-left: -150px;
+  box-shadow: 0px 0px 20px 1px darkgray;
+}
+
+.login .btn,
+.registration .btn{
+  margin-top: 5px;
+}
+
+.registration{
+  padding: 10px;
+  width: 300px;
+  height: 370px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -185px;
+  margin-left: -150px;
+  box-shadow: 0px 0px 20px 1px darkgray;
+}
+
+.registration table td{
+  padding: 2px 35px 2px 2px;
+  text-align: right;
+
+}
+
+td.deleteRightPadding, .deleteRightPadding{
+  padding-right: 0;
+}
+
+
+.toolbar {
+  border-right: 2px solid #BBBBBB;
+}
+
+.new-game {
+  position: absolute;
+  padding: 10px;
+  min-width: 300px;
+  max-width: 300px;
+  min-height: 330px;
+  left: 50%;
+  margin-left: -150px;
+  box-shadow: 0px 0px 20px 1px darkgray;
+}
+
+.user{
+  padding: 3px 3px 3px 10px;
+  height: 25px;
+  margin-bottom: 2px;
+  position: relative; 
+  left: -10px;
+  width: 298px;
+  cursor: pointer;
+}
+
+.user:hover{
+  background-color: #eeeeee;
+}
+
+
+.user span{
+  padding-left: 20px;
+}
+
+.new-game .btn{
+  position: absolute;
+  bottom: 30px;
+}
+
+
+.inviteYou{
+  color: red;
+}
+
+//.fields{
+//  padding: 5px;
+//  width: 350px;
+//  height: 350px;
+////  box-shadow: 0px 0px 20px 1px darkgray;
+//}
