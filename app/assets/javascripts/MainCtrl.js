@@ -35,11 +35,11 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
             $http.get('/games/' + $scope.App.gameId + '/ready.json', {})
                 .success(function(data){
                     if (data.status != 2)
-                        $scope.checkIsEnemyReadyInterval = setInterval($scope.checkIsEnemyReady, 500);
+                        $scope.checkIsEnemyReadyInterval = setInterval($scope.checkIsEnemyReady, 200);
                     else{
                         $scope.started = true;
                         if (!$scope.App.isYourStep)
-                            $scope.checkEnemyStepInterval = setInterval($scope.checkEnemyStep, 500);
+                            $scope.checkEnemyStepInterval = setInterval($scope.checkEnemyStep, 200);
                     }
                 });
         }
@@ -136,7 +136,7 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
                     $scope.enemyShipCount--;
                 }
                 if (data.status > 0){
-                    $scope.checkEnemyStepInterval = setInterval($scope.checkEnemyStep, 500);
+                    $scope.checkEnemyStepInterval = setInterval($scope.checkEnemyStep, 200);
                     $scope.App.isYourStep = false;
                 }
                 $scope.noSteps = false;
@@ -157,7 +157,7 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
         $http.post('/games/' + $scope.App.gameId + '/turns.json',{x: x, y: y})
             .success(function(data){
                 $scope.lastAttack = data;
-                $scope.checkMyStepInterval = setInterval($scope.checkMyStep, 500);
+                $scope.checkMyStepInterval = setInterval($scope.checkMyStep, 200);
             });
     };
 
@@ -212,7 +212,7 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
                 $http.post('/games/' + $scope.App.gameId +'/turns/' + attacked.id + '/confirm.json', {
                     status: $scope.yourField[attacked.x][attacked.y]
                 });
-                $scope.checkEnemyStepInterval = setInterval($scope.checkEnemyStep, 500);
+                $scope.checkEnemyStepInterval = setInterval($scope.checkEnemyStep, 200);
             } else{
                 $scope.II.attackResult(attacked.x, attacked.y, dead ? FieldState.KILLED : FieldState.HURT);
                 attack();
@@ -260,7 +260,7 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
                     clearInterval($scope.checkIsEnemyReadyInterval);
                     $scope.started = true;
                     if (!$scope.App.isYourStep)
-                        $scope.checkEnemyStepInterval = setInterval($scope.checkEnemyStep, 500);
+                        $scope.checkEnemyStepInterval = setInterval($scope.checkEnemyStep, 200);
                 }
             })
     };
