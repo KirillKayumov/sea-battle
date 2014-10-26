@@ -4,6 +4,7 @@ class GamesController < ApplicationController
   def new
     @online_users = User.where('last_active_at >= ?', 5.minutes.ago)
                         .where.not(id: current_user.id)
+                        .order(nickname: :asc)
   end
 
   def show

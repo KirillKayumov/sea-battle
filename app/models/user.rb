@@ -4,8 +4,15 @@ class User < ActiveRecord::Base
          :rememberable,
          :validatable
 
-  has_many :games, dependent: :destroy
   has_many :turns, dependent: :destroy
 
   validates :nickname, presence: true
+
+  def games
+    Game.where('sender_id = ? OR receiver_id = ?', id, id)
+  end
+
+  def winned_games
+    games.where(winner_id: id)
+  end
 end
