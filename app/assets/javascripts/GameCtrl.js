@@ -91,5 +91,9 @@ app.controller('GameCtrl', ['$scope', '$http', '$location', function ($scope,  $
 
     };
 
-    setTimeout(function(){window.location = '/games/new'}, 5000);
+
+    $scope.refresh = function(){
+        if (canStartGame)
+            window.location = '/games/new';
+    }
 }]);
