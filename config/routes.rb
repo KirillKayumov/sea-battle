@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     get '/invites', to: 'games#invites', on: :collection
     get '/finish', to: 'games#finish'
     get '/ready', to: 'games#ready'
+    get '/user_game', to: 'games#user_game', on: :collection
     resources :turns do
       post '/confirm', to: 'turns#confirm'
       get '/check', to: 'turns#check', on: :collection
