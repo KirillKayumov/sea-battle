@@ -131,6 +131,7 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
                     for (var i = 0; i < array.length; i++) {
                         $scope.enemyField[array[i].x][array[i].y] = FieldState.KILLED;
                     }
+                    $scope.enemyShipCount--;
                 }
                 if (data.status > 0){
                     $scope.checkEnemyStepInterval = setInterval($scope.checkEnemyStep, 500);
@@ -273,7 +274,7 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
 
     $scope.$watch("enemyShipCount", function(newValue){
         if (newValue == 0)
-            alert("You win")
+            alert("You win");
         });
 
 }]);
