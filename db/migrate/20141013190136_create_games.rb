@@ -5,6 +5,8 @@ class CreateGames < ActiveRecord::Migration
       t.integer :receiver_id
       t.integer :winner_id, default: nil
       t.integer :status, default: 0
+      t.boolean :sender_confirm, default: false
+      t.boolean :receiver_confirm, default: false
 
       t.timestamps
     end

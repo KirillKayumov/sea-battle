@@ -28,6 +28,21 @@ class GamesController < ApplicationController
     render json: game
   end
 
+  def ready
+    game = Game.find(params[:game_id])
+    if current_user.id == game.sender_id
+      game.update_attributes(sender_confirm: true)
+    elsif current_user.id == game.receiver_id
+      game.update_attributes(receiver_confirm: true)
+    end
+
+    if game.sender_confirm && game.receiver_confirm
+      game.update_attributes(status: 2)
+    end
+
+    render json: game
+  end
+
   def destroy
     game = Game.find(params[:id])
     game.destroy
