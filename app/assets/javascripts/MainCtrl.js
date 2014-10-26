@@ -239,6 +239,8 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
 
     $scope.render = function(){
         $scope.II.initialize();
+        $scope.yourField = HelpService.initializeArray();
+        $scope.hoveredCells = [];
         $scope.takedShip = -1;
         $scope.yourField = $scope.II.returnField().slice(0);
         $scope.yourShips= ["", 0, 0, 0, 0];
