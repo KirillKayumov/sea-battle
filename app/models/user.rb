@@ -4,4 +4,6 @@ class User < ActiveRecord::Base
          :rememberable,
          :trackable,
          :validatable
+
+  has_many :turns, dependent: :destroy
 end
