@@ -21,13 +21,13 @@
                         <span class="shipCount">x{{yourShips[1]}}</span>
                     </div>
                 </div>
-                <div ng-if="!started">
+                <div ng-if="!started && wait == ''">
                     <small class="">Press "R" for change orientation</small>
                     <br>
                     <button ng-click="render()" class="btn btn-primary">Auto</button>
                 </div>
 
-                <div ng-if="ready && !started" class="ready_button">
+                <div ng-if="ready && !started && wait == ''" class="ready_button">
                     <button class="btn btn-primary" ng-click="setStarted()">
                         Ready
                     </button>

@@ -162,6 +162,7 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
     $scope.damage = function($event, x, y){
         if (!$scope.started || !$scope.App.isYourStep || $scope.noSteps)
             return;
+        $($event.target).removeClass('fieldCell');
         if ($scope.enemyField[x][y] == FieldState.EMPTY){
             if ($scope.App.gameType == 'P'){
                 $scope.noSteps = true;
@@ -169,8 +170,6 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
                 $scope.lastAttack = {x: x, y:y};
                 return;
             }
-
-            $($event.target).removeClass('fieldCell');
             $scope.enemyField[x][y] = FieldState.ATTACKED;
             var status = $scope.II.attacked(x, y);
             $scope.enemyField[x][y] = status;
@@ -265,17 +264,23 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
     };
 
     $scope.$watch("yourShipCount", function(newValue){
-        if (newValue == 0){
+        if (newValue == 0 && $scope.started){
             alert("You lose");
-            $http.get('/games/' + $scope.App.gameId + '/finish.json', {});
+            setTimeout(function(){
+                $http.get('/games/' + $scope.App.gameId + '/finish.json', {});
+            },2000);
             window.location = '/games/new';
         }
     });
 
     $scope.$watch("enemyShipCount", function(newValue){
-        if (newValue == 0)
+        if (newValue == 0 && $scope.started){
             alert("You win");
+            setTimeout(function(){
+                $http.get('/games/' + $scope.App.gameId + '/finish.json', {});
+            },2000);
             window.location = '/games/new';
-        });
+        }
+    });
 
 }]);
