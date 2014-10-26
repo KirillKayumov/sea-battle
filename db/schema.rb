@@ -20,7 +20,9 @@ ActiveRecord::Schema.define(version: 20141013190136) do
     t.integer  "sender_id"
     t.integer  "receiver_id"
     t.integer  "winner_id"
-    t.integer  "status",      default: 0
+    t.integer  "status",           default: 0
+    t.boolean  "sender_confirm",   default: false
+    t.boolean  "receiver_confirm", default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -28,8 +30,9 @@ ActiveRecord::Schema.define(version: 20141013190136) do
   create_table "turns", force: true do |t|
     t.integer  "performer_id"
     t.integer  "game_id"
-    t.integer  "row"
-    t.integer  "column"
+    t.integer  "x"
+    t.integer  "y"
+    t.integer  "status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

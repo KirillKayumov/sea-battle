@@ -9,6 +9,8 @@ app.controller('GameCtrl', ['$scope', '$http', '$location', function ($scope,  $
             if ($scope.isInviteYou(id)){
                 $http.post('/games/' + $scope.isInviteYou(id) + '/confirm.json',{})
                     .success(function(data){
+                        $scope.App.isYourStep = true;
+                        $scope.gameId = data.id;
                         window.location = '/';
                     });
             } else{
@@ -39,6 +41,9 @@ app.controller('GameCtrl', ['$scope', '$http', '$location', function ($scope,  $
                 .success(function(data, status, headers, config) {
                     if (data.status == 1){
                         clearInterval($scope.gameInterval);
+                        $scope.App.gameType = 'P';
+                        $scope.App.gameId = $scope.waitGame;
+                        $scope.App.isYourStep = false;
                         window.location = '/';
                     }
                 });
@@ -59,8 +64,8 @@ app.controller('GameCtrl', ['$scope', '$http', '$location', function ($scope,  $
     });
 
     $scope.playWithComputer = function(){
-        $scope.gameType = 'C';
-        window.location = '/'
+        $scope.App.gameType = 'C';
+        window.location = '/';
     };
 
     setInterval($scope.getInvites, 1000);
