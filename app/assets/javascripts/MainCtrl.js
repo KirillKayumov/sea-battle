@@ -194,8 +194,7 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
     }
 
     $scope.checkAttack = function(attacked){
-        if ($scope.yourField[attacked.x][attacked.y] != FieldState.SHIP ||
-                $scope.yourField[attacked.x][attacked.y] != FieldState.EMPTY){
+        if ($scope.yourField[attacked.x][attacked.y] != FieldState.SHIP && $scope.yourField[attacked.x][attacked.y] != FieldState.EMPTY){
             return;
         }
         if ($scope.yourField[attacked.x][attacked.y] == FieldState.SHIP){
