@@ -35,11 +35,11 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
             $http.get('/games/' + $scope.App.gameId + '/ready.json', {})
                 .success(function(data){
                     if (data.status != 2)
-                        $scope.checkIsEnemyReadyInterval = setInterval($scope.checkIsEnemyReady, 200);
+                        $scope.checkIsEnemyReadyInterval = setInterval($scope.checkIsEnemyReady, 500);
                     else{
                         $scope.started = true;
                         if (!$scope.App.isYourStep)
-                            $scope.checkEnemyStepInterval = setInterval($scope.checkEnemyStep, 200);
+                            $scope.checkEnemyStepInterval = setInterval($scope.checkEnemyStep, 500);
                     }
                 });
         }
@@ -136,7 +136,7 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
                     $scope.enemyShipCount--;
                 }
                 if (data.status > 0){
-                    $scope.checkEnemyStepInterval = setInterval($scope.checkEnemyStep, 200);
+                    $scope.checkEnemyStepInterval = setInterval($scope.checkEnemyStep, 500);
                     $scope.App.isYourStep = false;
                 }
                 $scope.noSteps = false;
@@ -157,7 +157,7 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
         $http.post('/games/' + $scope.App.gameId + '/turns.json',{x: x, y: y})
             .success(function(data){
                 $scope.lastAttack = data;
-                $scope.checkMyStepInterval = setInterval($scope.checkMyStep, 200);
+                $scope.checkMyStepInterval = setInterval($scope.checkMyStep, 500);
             });
     };
 
@@ -194,9 +194,6 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
     }
 
     $scope.checkAttack = function(attacked){
-        if ($scope.yourField[attacked.x][attacked.y] != FieldState.SHIP && $scope.yourField[attacked.x][attacked.y] != FieldState.EMPTY){
-            return;
-        }
         if ($scope.yourField[attacked.x][attacked.y] == FieldState.SHIP){
             $scope.yourField[attacked.x][attacked.y] = FieldState.HURT;
             var array = HelpService.findConnectedCells(attacked.x, attacked.y, $scope.yourField);
@@ -215,7 +212,7 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
                 $http.post('/games/' + $scope.App.gameId +'/turns/' + attacked.id + '/confirm.json', {
                     status: $scope.yourField[attacked.x][attacked.y]
                 });
-                $scope.checkEnemyStepInterval = setInterval($scope.checkEnemyStep, 200);
+                $scope.checkEnemyStepInterval = setInterval($scope.checkEnemyStep, 500);
             } else{
                 $scope.II.attackResult(attacked.x, attacked.y, dead ? FieldState.KILLED : FieldState.HURT);
                 attack();
@@ -263,7 +260,7 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
                     clearInterval($scope.checkIsEnemyReadyInterval);
                     $scope.started = true;
                     if (!$scope.App.isYourStep)
-                        $scope.checkEnemyStepInterval = setInterval($scope.checkEnemyStep, 200);
+                        $scope.checkEnemyStepInterval = setInterval($scope.checkEnemyStep, 500);
                 }
             })
     };
@@ -273,7 +270,7 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
             alert("You lose");
             setTimeout(function(){
                 $http.get('/games/' + $scope.App.gameId + '/finish.json', {});
-            },2000);
+            },5000);
             window.location = '/games/new';
         }
     });
@@ -283,7 +280,7 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
             alert("You win");
             setTimeout(function(){
                 $http.get('/games/' + $scope.App.gameId + '/finish.json', {});
-            },2000);
+            },5000);
             window.location = '/games/new';
         }
     });
