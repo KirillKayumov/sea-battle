@@ -281,9 +281,6 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
     $scope.$watch("enemyShipCount", function(newValue){
         if (newValue == 0 && $scope.started){
             alert("You win");
-            setTimeout(function(){
-                $http.get('/games/' + $scope.App.gameId + '/finish.json', {});
-            },5000);
             window.location = '/games/new';
         }
     });
