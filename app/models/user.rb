@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
 
   def games
     Game.where('sender_id = ? OR receiver_id = ?', id, id)
+        .where(status: 3)
   end
 
   def winned_games
