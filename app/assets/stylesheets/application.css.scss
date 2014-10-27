@@ -45,16 +45,16 @@
 }
 
 .damaged{
-  background-color: red;
+  background-color: #ECE262;
 }
 
 .attacked{
-  background-color: blue;
+  background-color: #C8C9EB;
 }
 
 .shipCell {
   display: inline-block;
-  background-color: royalblue;
+  background-color: #A3A5EB;
   width: 20px;
   height: 20px;
 }
@@ -68,27 +68,27 @@
 }
 
 .takedShip .shipCell{
-  background-color: blue;
+  background-color: #444799;
 }
 
 .hovered{
-  background-color: blue;
+  background-color: #444799;
 }
 
 .isShip {
-  background-color: gray;
+  background-color: #444799;
 }
 
 .disabledSelect .shipCell{
-  background-color: lightblue;
+  background-color: black;
 }
 
 .cantPut{
-  background-color: red;
+  background-color: #dddddd;
 }
 
 .killed{
-  background-color: #000000;
+  background-color: #FF4040;
 }
 
 .ready_button{

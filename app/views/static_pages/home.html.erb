@@ -62,8 +62,8 @@
                                     ng-class="{
                                                 'isShip' : yourField[$parent.$index][$index] == FieldState.SHIP,
                                                 'hovered': hoveredCells[$parent.$index][$index] == FieldState.SHIP,
-                                                'damaged': ( yourField[$parent.$index][$index] == FieldState.SHIP_NEAR && takedShip != -1
-                                                    ||yourField[$parent.$index][$index] == FieldState.HURT),
+                                                'cantPut': (yourField[$parent.$index][$index] == FieldState.SHIP_NEAR && takedShip != -1),
+                                                'damaged': (yourField[$parent.$index][$index] == FieldState.HURT),
                                                 'killed' : (yourField[$parent.$index][$index] == FieldState.KILLED),
                                                 'attacked':(yourField[$parent.$index][$index] == FieldState.ATTACKED)
                                               }"
