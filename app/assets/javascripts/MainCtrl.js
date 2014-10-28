@@ -289,4 +289,16 @@ app.controller('MainCtrl', ['$scope', 'II', 'HelpService', 'FieldState', '$http'
         $http.delete('/games/' + $scope.App.gameId + '.json');
     });
 
+
+    $scope.clear = function(){
+        $scope.yourShips = ["", 4, 3, 2, 1];
+        $scope.takedShip = -1;
+        $scope.started = false;
+        $scope.hoveredCells = [];
+        $scope.yourField = HelpService.initializeArray(10, 10);
+        $scope.enemyField = HelpService.initializeArray(10, 10);
+        $scope.yourShipCount = 10;
+        $scope.enemyShipCount = 10;
+        $scope.ready = false;
+    }
 }]);

@@ -14,6 +14,7 @@
             <li><a href="/games/new">New game</a></li>
             <li><%= link_to 'Sign out', destroy_user_session_path, method: :delete %></li>
         </ul>
+        <p class="navbar-text pull-right">Your stats:  <%= "#{current_user.winned_games.size} wins / #{current_user.games.size} games" %></p>
     </div>
 </div>
 <% else %>
