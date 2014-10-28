@@ -2,7 +2,7 @@ class GamesController < ApplicationController
   before_action :authenticate_user!
 
   def new
-    @online_users = User.where('last_active_at >= ?', 5.minutes.ago)
+    @online_users = User.where('last_active_at >= ?', 1.minute.ago)
                         .where.not(id: current_user.id)
                         .order(nickname: :asc)
   end
